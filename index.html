@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #ffd6ec, #ffe4f0);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3em;
+      color: #ff4d88;
+      margin-bottom: 10px;
+      animation: pop 1s ease-in-out;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #4b004b;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .gallery-wrapper {
+      margin: 40px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .gallery-wrapper img {
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      object-fit: cover;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .gallery-wrapper img:hover {
+      transform: scale(1.05);
+    }
+
+    .decor-left, .decor-right {
+      position: absolute;
+      top: -40px;
+      width: 80px;
+      height: auto;
+    }
+
+    .decor-left { left: -60px; }
+    .decor-right { right: -60px; }
+
+    .heart {
+      font-size: 2em;
+      color: #ff4da6;
+      animation: pulse 1.5s infinite;
+      margin-top: 30px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 0.9em;
+      color: #aa0077;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 90%;
+      width: 300px;
+      text-align: center;
+      position: relative;
+      animation: pop 0.3s ease;
+    }
+
+    .popup-content h3 {
+      margin-top: 0;
+      color: #ff4d88;
+    }
+
+    .popup-content button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #ff4d88;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎂 Selamat Ulang Tahun! 🎉</h1>
+    <p>
+      Semoga harimu penuh kebahagiaan, senyuman, dan bunga-bunga indah seperti cilala!
+    </p>
+
+    <div class="gallery-wrapper">
+      <img src="B1.png" class="decor-left" alt="bunga kiri" />
+
+      <img src="1.jpeg" alt="kado" onclick="showPopup('wkwkw siapa nihh?? 🎁')">
+      <img src="3.png" alt="kue" onclick="showPopup('Maaf cuma bisa kasi ini di hari special kamu 🎂')">
+      <img src="2.jpeg" alt="foto" onclick="showPopup('HAPPY BIRTHDAY CILALA! 📸')">
+
+      <img src="b2.png" class="decor-right" alt="bunga kanan" />
+    </div>
+
+    <div class="heart">💖💖💖</div>
+    <div class="footer">Sorry, Semangatt aku ga tau takut salah ngomong maaff</div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <button onclick="closePopup()">×</button>
+      <h3 id="popup-text"></h3>
+    </div>
+  </div>
+
+  <script>
+    function showPopup(text) {
+      document.getElementById('popup-text').textContent = text;
+      document.getElementById('popup').style.display = 'flex';
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

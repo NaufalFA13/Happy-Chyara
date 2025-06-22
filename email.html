@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kirim Pesan Ulang Tahun 🎂</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffeaf4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      color: #ff4d88;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff4da6;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff3399;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Maaff buat segalanya makasih juga ciara, ada yang mau di sampein??</h2>
+    <form id="emailForm">
+      <input type="text" name="user_name" placeholder="Nama Kamu" required />
+      <input type="email" name="user_email" placeholder="Email Kamu" required />
+      <textarea name="message" placeholder="Pesan" rows="5" required></textarea>
+      <button type="submit">Kirim Sekarang</button>
+    </form>
+  </div>
+
+  <script>
+    // Inisialisasi EmailJS (masukkan user ID kamu)
+    emailjs.init("-LO1Sfl7m7q1w10ut");
+
+    document.getElementById("emailForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      emailjs.sendForm('service_ba0r2o8', 'template_ki93vbu', this)
+        .then(function() {
+          alert("Pesan berhasil dikirim! 🎉");
+        }, function(error) {
+          alert("Oops... Gagal mengirim 😢\n" + JSON.stringify(error));
+        });
+    });
+  </script>
+</body>
+</html>
