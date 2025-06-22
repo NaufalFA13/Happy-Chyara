@@ -129,7 +129,14 @@
       color: #ff4d88;
       cursor: pointer;
     }
-    .cute-button {
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    padding: 0 20px;
+  }
+
+  .cute-button {
     display: inline-block;
     padding: 14px 28px;
     background: linear-gradient(145deg, #ff99cc, #ff66b2);
@@ -144,6 +151,8 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    max-width: 90%;
+    text-align: center;
   }
 
   .cute-button::before {
@@ -169,6 +178,14 @@
   .cute-button:active {
     transform: scale(0.98);
   }
+
+  @media screen and (max-width: 480px) {
+    .cute-button {
+      font-size: 1em;
+      padding: 12px 24px;
+    }
+  }
+
   </style>
 </head>
 <body>
@@ -199,9 +216,11 @@
       <h3 id="popup-text"></h3>
     </div>
   </div>
-  <a href="email.html" class="cute-button">
-  🎈 Pesan untuk Kamu
+<div class="button-wrapper">
+  <a href="pesan_untuk_kamu.html" class="cute-button">
+    🎈 Pesan untuk Kamu
   </a>
+</div>
 
   <script>
     function showPopup(text) {
