@@ -129,6 +129,46 @@
       color: #ff4d88;
       cursor: pointer;
     }
+    .cute-button {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(145deg, #ff99cc, #ff66b2);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cute-button::before {
+    content: "💌";
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    transition: left 0.3s ease;
+  }
+
+  .cute-button:hover::before {
+    left: 10px;
+  }
+
+  .cute-button:hover {
+    background: linear-gradient(145deg, #ff66b2, #ff99cc);
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  }
+
+  .cute-button:active {
+    transform: scale(0.98);
+  }
   </style>
 </head>
 <body>
@@ -159,6 +199,9 @@
       <h3 id="popup-text"></h3>
     </div>
   </div>
+  <a href="pesan_untuk_kamu.html" class="cute-button">
+  🎈 Pesan untuk Kamu
+  </a>
 
   <script>
     function showPopup(text) {
