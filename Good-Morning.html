@@ -75,9 +75,9 @@
 </head>
 <body>
   <div class="container">
-    <h2>💖Semangat Pagi💖</h2>
+    <h2>💖Good Morning💖</h2>
     <form id="morningForm">
-      <label for="message">Pesan Manis Kamu:</label><br/>
+      <label for="message">Pesan Kamu:</label><br/>
       <textarea id="message" name="message" required></textarea><br/><br/>
 
       <label for="readiness">Seberapa siap kamu hari ini?</label><br/>
@@ -117,7 +117,7 @@
         readiness_level: readiness
       };
 
-      emailjs.send("service_ba0r2o8", "template_ki93vbu", templateParams)
+      emailjs.send("service_wnyqoqm", "template_e9xv3x9", templateParams)
         .then(function(response) {
           document.getElementById("confirmation").textContent = "🎉 Pesanmu berhasil dikirim!";
         }, function(error) {
