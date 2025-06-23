@@ -75,7 +75,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>💖Good Morning💖</h2>
+    <h2>💖 GOOD MORNING CILALA 💖</h2>
     <form id="morningForm">
       <label for="message">Pesan Kamu:</label><br/>
       <textarea id="message" name="message" required></textarea><br/><br/>
@@ -91,14 +91,15 @@
     <div class="message" id="confirmation"></div>
   </div>
 
-  <!-- EmailJS CDN -->
+  <!-- EmailJS -->
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    emailjs.init("-LO1Sfl7m7q1w10ut"); // Ganti dengan PUBLIC KEY kamu
+    // Inisialisasi public key
+    emailjs.init("-LO1Sfl7m7q1w10ut");
 
+    // Emoji berdasarkan nilai slider
     const emoji = document.getElementById("emoji");
     const slider = document.getElementById("readiness");
-
     const emojiMap = ["😴","😪","😕","😐","🙂","😊","😃","😄","😁","🤩","💪"];
 
     slider.addEventListener("input", () => {
@@ -106,23 +107,22 @@
       emoji.textContent = emojiMap[val];
     });
 
+    // Kirim email saat form disubmit
     document.getElementById("morningForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const message = document.getElementById("message").value;
-      const readiness = document.getElementById("readiness").value;
-
       const templateParams = {
-        user_message: message,
-        readiness_level: readiness
+        user_message: document.getElementById("message").value,
+        readiness_level: document.getElementById("readiness").value
       };
 
-      emailjs.send("service_wnyqoqm", "template_e9xv3x9", templateParams)
+      emailjs.send("service_ba0r2o8", "template_ki93vbu", templateParams)
         .then(function(response) {
+          console.log("SUCCESS!", response.status, response.text);
           document.getElementById("confirmation").textContent = "🎉 Pesanmu berhasil dikirim!";
         }, function(error) {
-          document.getElementById("confirmation").textContent = "❌ Gagal mengirim pesan.";
-          console.error("EmailJS Error:", error);
+          console.error("FAILED...", error);
+          document.getElementById("confirmation").textContent = `❌ Gagal mengirim: ${error.text || error}`;
         });
     });
   </script>
