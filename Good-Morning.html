@@ -3,179 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Good Morning Chyara 💌</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(to right, #fff0f5, #e0cfff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-    .flower {
-      position: absolute;
-      font-size: 24px;
-      animation: float 6s infinite ease-in-out;
-      opacity: 0.5;
-      user-select: none;
-    }
-    .flower:nth-child(1) { top: 5%; left: 3%; animation-delay: 0s; }
-    .flower:nth-child(2) { top: 25%; right: 4%; animation-delay: 2s; }
-    .flower:nth-child(3) { bottom: 15%; left: 6%; animation-delay: 3s; }
-    .flower:nth-child(4) { bottom: 5%; right: 7%; animation-delay: 1s; }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px) rotate(10deg); }
-    }
-    .container {
-      background-color: #fffafc;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      z-index: 1;
-    }
-    h2 {
-      color: #d63384;
-      margin-bottom: 20px;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-      border-radius: 10px;
-      border: 2px solid #f8c8dc;
-      padding: 10px;
-      font-size: 16px;
-      resize: none;
-    }
-    .emoji-options {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 15px;
-      margin-bottom: 20px;
-      gap: 5px;
-    }
-    .emoji-option {
-      font-size: 24px;
-      padding: 8px;
-      border-radius: 10px;
-      cursor: pointer;
-      flex: 1;
-      border: 2px solid transparent;
-      transition: transform 0.2s ease;
-    }
-    .emoji-option:hover {
-      transform: scale(1.2);
-      background-color: #ffe0f0;
-    }
-    .emoji-option.selected {
-      border-color: #ff69b4;
-      background-color: #ffe6f7;
-    }
-    button {
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #ff1493;
-    }
-    .message {
-      margin-top: 15px;
-      color: green;
-      font-weight: bold;
-    }
-    @media (max-width: 480px) {
-      h2 {
-        font-size: 20px;
-      }
-      textarea {
-        font-size: 14px;
-      }
-      button {
-        font-size: 14px;
-        padding: 8px 16px;
-      }
-    }
-  </style>
+  <title>Test EmailJS Kirim Pesan</title>
 </head>
 <body>
-  <!-- Floating Emoji Flowers -->
-  <div class="flower">🌸</div>
-  <div class="flower">🌸</div>
-  <div class="flower">🌸</div>
-  <div class="flower">🌸</div>
+  <h2>Test Kirim Email via EmailJS</h2>
+  <form id="testForm">
+    <label>Pesan:</label><br />
+    <textarea id="message" required rows="4" cols="40"></textarea><br /><br />
+    <label>Mood (1-5):</label><br />
+    <input type="number" id="readiness" min="1" max="5" value="3" required /><br /><br />
+    <button type="submit">Kirim</button>
+  </form>
+  <p id="status"></p>
 
-  <div class="container">
-    <h2>Selamat Pagi Chyara 🌞</h2>
-    <form id="morningForm">
-      <label for="message">Pesan Manis Kamu:</label><br/>
-      <textarea id="message" name="message" required></textarea><br/>
-
-      <label for="readiness">Mood kamu pagi ini?</label><br/>
-      <div class="emoji-options" id="emojiOptions">
-        <div class="emoji-option" data-value="1">🥱</div>
-        <div class="emoji-option" data-value="2">😐</div>
-        <div class="emoji-option" data-value="3">🙂</div>
-        <div class="emoji-option" data-value="4">😁</div>
-        <div class="emoji-option" data-value="5">💪</div>
-      </div>
-
-      <input type="hidden" id="readiness_level" name="readiness_level" value="3">
-
-      <button type="submit">💌 Kirim</button>
-    </form>
-    <div class="message" id="confirmation"></div>
-  </div>
-
-  <!-- EmailJS SDK (non-module) -->
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
     (function() {
       emailjs.init('-LO1Sfl7m7q1w10ut');
+      const form = document.getElementById('testForm');
+      const status = document.getElementById('status');
 
-      const form = document.getElementById("morningForm");
-      const emojiOptions = document.getElementById("emojiOptions");
-      const hiddenInput = document.getElementById("readiness_level");
-      const confirmation = document.getElementById("confirmation");
-
-      emojiOptions.addEventListener("click", (e) => {
-        if (e.target.classList.contains("emoji-option")) {
-          document.querySelectorAll(".emoji-option").forEach(el => el.classList.remove("selected"));
-          e.target.classList.add("selected");
-          hiddenInput.value = e.target.dataset.value;
-        }
-      });
-
-      form.addEventListener("submit", (e) => {
+      form.addEventListener('submit', function(e) {
         e.preventDefault();
-
         const templateParams = {
-          user_message: document.getElementById("message").value,
-          readiness_level: hiddenInput.value
+          user_message: document.getElementById('message').value,
+          readiness_level: document.getElementById('readiness').value,
         };
-
         emailjs.send('service_ba0r2o8', 'template_ki93vbu', templateParams)
           .then(() => {
-            confirmation.textContent = "🎉 Pesan berhasil dikirim!";
+            status.textContent = '🎉 Pesan berhasil dikirim!';
+            status.style.color = 'green';
             form.reset();
-            document.querySelectorAll(".emoji-option").forEach(el => el.classList.remove("selected"));
-            hiddenInput.value = "3";
           })
-          .catch(err => {
-            confirmation.textContent = "❌ Gagal mengirim pesan.";
-            console.error("EmailJS error:", err);
+          .catch((err) => {
+            status.textContent = '❌ Gagal mengirim pesan.';
+            status.style.color = 'red';
+            console.error('EmailJS error:', err);
           });
       });
     })();
