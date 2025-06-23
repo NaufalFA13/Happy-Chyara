@@ -1,47 +1,144 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Test EmailJS Kirim Pesan</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Good Morning Ciara 🌸</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #fceabb, #f8b500);
+    font-family: 'Pacifico', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+    overflow-x: hidden;
+  }
+  h1 {
+    font-size: 3em;
+    margin-top: 1em;
+    color: #fff;
+    text-shadow: 2px 2px 6px #d46a6a;
+    letter-spacing: 3px;
+  }
+  .flowers-container {
+    position: relative;
+    margin-top: 2em;
+    width: 90vw;
+    max-width: 400px;
+    height: 400px;
+  }
+  .flower {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 0 15px 4px #ff9f9f80;
+    background: #ffd6d6;
+    animation: floatFlower 6s ease-in-out infinite;
+  }
+  .flower img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Floating animation */
+  @keyframes floatFlower {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(10deg); }
+  }
+  /* Different delays for animation */
+  .flower:nth-child(1) { animation-delay: 0s; }
+  .flower:nth-child(2) { animation-delay: 2s; }
+  .flower:nth-child(3) { animation-delay: 4s; }
+
+  /* Moving flower emojis */
+  .emoji-flower {
+    position: fixed;
+    font-size: 2.5rem;
+    animation-name: moveFlower;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity: 0.8;
+    user-select: none;
+  }
+  @keyframes moveFlower {
+    0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0.8;}
+    100% { transform: translateY(-10vh) translateX(100vw) rotate(360deg); opacity: 0;}
+  }
+</style>
 </head>
 <body>
-  <h2>Test Kirim Email via EmailJS</h2>
-  <form id="testForm">
-    <label>Pesan:</label><br />
-    <textarea id="message" required rows="4" cols="40"></textarea><br /><br />
-    <label>Mood (1-5):</label><br />
-    <input type="number" id="readiness" min="1" max="5" value="3" required /><br /><br />
-    <button type="submit">Kirim</button>
-  </form>
-  <p id="status"></p>
 
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    (function() {
-      emailjs.init('-LO1Sfl7m7q1w10ut');
-      const form = document.getElementById('testForm');
-      const status = document.getElementById('status');
+<h1>🌸 GOOD MORNING CIARA! 🌸</h1>
 
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const templateParams = {
-          user_message: document.getElementById('message').value,
-          readiness_level: document.getElementById('readiness').value,
-        };
-        emailjs.send('service_ba0r2o8', 'template_ki93vbu', templateParams)
-          .then(() => {
-            status.textContent = '🎉 Pesan berhasil dikirim!';
-            status.style.color = 'green';
-            form.reset();
-          })
-          .catch((err) => {
-            status.textContent = '❌ Gagal mengirim pesan.';
-            status.style.color = 'red';
-            console.error('EmailJS error:', err);
-          });
-      });
-    })();
-  </script>
+<div class="flowers-container" id="flowersContainer">
+  <!-- Bunga dengan foto akan muncul di sini -->
+</div>
+
+<script>
+  // Contoh foto (ganti nanti dengan foto teman kamu)
+  const photos = [
+    'H!.PNG', // Placeholder 1
+    'J!.PNG', // Placeholder 2
+    'F!.PNG'  // Placeholder 3
+  ];
+
+  // Generate posisi acak dalam container
+  function randomPos(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function createFlower(imgSrc) {
+    const div = document.createElement('div');
+    div.classList.add('flower');
+    div.style.top = randomPos(280) + 'px';
+    div.style.left = randomPos(280) + 'px';
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    div.appendChild(img);
+    return div;
+  }
+
+  function loadFlowers() {
+    const container = document.getElementById('flowersContainer');
+    container.innerHTML = '';
+    // Pilih 3 foto random dari array (boleh sama)
+    for(let i = 0; i < 3; i++) {
+      const randomIndex = Math.floor(Math.random() * photos.length);
+      container.appendChild(createFlower(photos[randomIndex]));
+    }
+  }
+
+  // Buat emoji bunga yang bergerak
+  function createMovingEmojiFlower() {
+    const emoji = document.createElement('div');
+    emoji.classList.add('emoji-flower');
+    emoji.style.top = (window.innerHeight + 20) + 'px';
+    emoji.style.left = Math.random() * window.innerWidth + 'px';
+    emoji.style.animationDuration = (8 + Math.random() * 5) + 's';
+    emoji.textContent = '🌺';
+    document.body.appendChild(emoji);
+
+    // Hapus setelah animasi selesai
+    setTimeout(() => emoji.remove(), 13000);
+  }
+
+  // Load bunga dengan foto saat page ready
+  window.onload = () => {
+    loadFlowers();
+
+    // Tambah emoji bunga bergerak setiap 2 detik
+    setInterval(createMovingEmojiFlower, 2000);
+  };
+</script>
+
 </body>
 </html>
