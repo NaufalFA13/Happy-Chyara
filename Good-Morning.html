@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Good Morning Chyara 💌</title>
   <style>
     body {
@@ -16,7 +16,6 @@
       overflow-x: hidden;
       position: relative;
     }
-
     .flower {
       position: absolute;
       font-size: 24px;
@@ -24,17 +23,14 @@
       opacity: 0.5;
       user-select: none;
     }
-
     .flower:nth-child(1) { top: 5%; left: 3%; animation-delay: 0s; }
     .flower:nth-child(2) { top: 25%; right: 4%; animation-delay: 2s; }
     .flower:nth-child(3) { bottom: 15%; left: 6%; animation-delay: 3s; }
     .flower:nth-child(4) { bottom: 5%; right: 7%; animation-delay: 1s; }
-
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px) rotate(10deg); }
     }
-
     .container {
       background-color: #fffafc;
       padding: 25px;
@@ -45,12 +41,10 @@
       text-align: center;
       z-index: 1;
     }
-
     h2 {
       color: #d63384;
       margin-bottom: 20px;
     }
-
     textarea {
       width: 100%;
       height: 100px;
@@ -60,7 +54,6 @@
       font-size: 16px;
       resize: none;
     }
-
     .emoji-options {
       display: flex;
       justify-content: space-between;
@@ -68,7 +61,6 @@
       margin-bottom: 20px;
       gap: 5px;
     }
-
     .emoji-option {
       font-size: 24px;
       padding: 8px;
@@ -78,17 +70,14 @@
       border: 2px solid transparent;
       transition: transform 0.2s ease;
     }
-
     .emoji-option:hover {
       transform: scale(1.2);
       background-color: #ffe0f0;
     }
-
     .emoji-option.selected {
       border-color: #ff69b4;
       background-color: #ffe6f7;
     }
-
     button {
       background-color: #ff69b4;
       color: white;
@@ -99,17 +88,14 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     button:hover {
       background-color: #ff1493;
     }
-
     .message {
       margin-top: 15px;
       color: green;
       font-weight: bold;
     }
-
     @media (max-width: 480px) {
       h2 {
         font-size: 20px;
@@ -153,45 +139,46 @@
     <div class="message" id="confirmation"></div>
   </div>
 
-  <!-- EmailJS SDK (Modern) -->
-  <script type="module">
-    import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
-    emailjs.init('-LO1Sfl7m7q1w10ut');
+  <!-- EmailJS SDK (non-module) -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init('-LO1Sfl7m7q1w10ut');
 
-    const form = document.getElementById("morningForm");
-    const emojiOptions = document.getElementById("emojiOptions");
-    const hiddenInput = document.getElementById("readiness_level");
-    const confirmation = document.getElementById("confirmation");
+      const form = document.getElementById("morningForm");
+      const emojiOptions = document.getElementById("emojiOptions");
+      const hiddenInput = document.getElementById("readiness_level");
+      const confirmation = document.getElementById("confirmation");
 
-    // Pilih emoji
-    emojiOptions.addEventListener("click", (e) => {
-      if (e.target.classList.contains("emoji-option")) {
-        document.querySelectorAll(".emoji-option").forEach(el => el.classList.remove("selected"));
-        e.target.classList.add("selected");
-        hiddenInput.value = e.target.dataset.value;
-      }
-    });
-
-    // Submit form
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const templateParams = {
-        user_message: document.getElementById("message").value,
-        readiness_level: hiddenInput.value
-      };
-
-      emailjs.send('service_ba0r2o8', 'template_ki93vbu', templateParams)
-        .then(() => {
-          confirmation.textContent = "🎉 Pesan berhasil dikirim!";
-          form.reset();
+      emojiOptions.addEventListener("click", (e) => {
+        if (e.target.classList.contains("emoji-option")) {
           document.querySelectorAll(".emoji-option").forEach(el => el.classList.remove("selected"));
-        })
-        .catch(err => {
-          confirmation.textContent = "❌ Gagal mengirim.";
-          console.error(err);
-        });
-    });
+          e.target.classList.add("selected");
+          hiddenInput.value = e.target.dataset.value;
+        }
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const templateParams = {
+          user_message: document.getElementById("message").value,
+          readiness_level: hiddenInput.value
+        };
+
+        emailjs.send('service_ba0r2o8', 'template_ki93vbu', templateParams)
+          .then(() => {
+            confirmation.textContent = "🎉 Pesan berhasil dikirim!";
+            form.reset();
+            document.querySelectorAll(".emoji-option").forEach(el => el.classList.remove("selected"));
+            hiddenInput.value = "3";
+          })
+          .catch(err => {
+            confirmation.textContent = "❌ Gagal mengirim pesan.";
+            console.error("EmailJS error:", err);
+          });
+      });
+    })();
   </script>
 </body>
 </html>
