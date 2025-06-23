@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Good Morning Cilala!💕</title>
+  <title>Good Morning Cilala!💐</title>
   <style>
     body {
       margin: 0;
@@ -35,12 +35,8 @@
     }
 
     @keyframes bloom {
-      0% {
-        transform: scale(1) rotate(0deg);
-      }
-      100% {
-        transform: scale(1.2) rotate(10deg);
-      }
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.2) rotate(10deg); }
     }
 
     .image-container {
@@ -65,6 +61,45 @@
       transform: scale(1.1) rotate(5deg);
     }
 
+    .btn {
+      margin: 30px auto;
+      padding: 12px 25px;
+      font-size: 20px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ff1493;
+    }
+
+    .emoji {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      font-size: 30px;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+      animation: pop 2s forwards;
+      pointer-events: none;
+    }
+
+    @keyframes pop {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50vw + 50%), calc(-50vh + 50%)) scale(3) rotate(360deg);
+      }
+    }
+
     @media screen and (max-width: 500px) {
       h1 {
         font-size: 26px;
@@ -72,6 +107,10 @@
       .image-container img {
         width: 90px;
         height: 90px;
+      }
+      .btn {
+        font-size: 18px;
+        padding: 10px 20px;
       }
     }
   </style>
@@ -84,7 +123,7 @@
     <div class="flower">🌸</div>
   </div>
 
-  <h1>GOOD MORNING CILALA!</h1>
+  <h1>GOOD MORNING CILALA!💕</h1>
 
   <div class="bouquet">
     <div class="flower">🌸</div>
@@ -93,6 +132,8 @@
   </div>
 
   <div class="image-container" id="imageContainer"></div>
+
+  <button class="btn" onclick="showSurprise()">🎁 Surprise 💖</button>
 
   <script>
     const images = ['H!.PNG', 'J!.PNG', 'F!.PNG'];
@@ -111,6 +152,17 @@
         img.src = src;
         container.appendChild(img);
       });
+    }
+
+    function showSurprise() {
+      const emojis = ['❤️','💖','💐','💕','🌸','💝'];
+      for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('div');
+        emoji.classList.add('emoji');
+        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        document.body.appendChild(emoji);
+        setTimeout(() => { emoji.remove(); }, 2000);
+      }
     }
 
     window.onload = displayImages;
