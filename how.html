@@ -67,7 +67,7 @@
     }
 
     .music-controls {
-      margin: 50px auto 10px;
+      margin: 50px auto 20px;
       display: flex;
       justify-content: center;
       gap: 16px;
@@ -130,6 +130,62 @@
       to { opacity: 1; }
     }
 
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 85%;
+      max-width: 350px;
+      background: #ffe6f0;
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 99;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #ff1493;
+      animation: zoomIn 0.6s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      to {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .popup span {
+      font-weight: bold;
+    }
+
+    .popup-close {
+      margin-top: 18px;
+      padding: 8px 18px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .popup-flower {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      font-size: 28px;
+    }
+
+    .popup-flower.left {
+      top: -16px;
+      left: -16px;
+    }
+
+    .popup-flower.right {
+      top: -16px;
+      right: -16px;
+    }
+
     audio {
       display: none;
     }
@@ -163,6 +219,13 @@
     🐱 <span class="cat-text">I always on your side Ciara, don’t scared of anything</span>
   </div>
 
+  <div class="popup" id="popupBox" style="display:none;">
+    <div class="popup-flower left">🌸</div>
+    <div class="popup-flower right">🌸</div>
+    Hari ini tanggal 25 Juni aku sudah menonton Enola rekomendasi mu, aku suka film tersebut. Aku juga akan berusaha seperti tokoh pria yang kau sukai di film itu, tetapi aku tak mau menjadi lemah sepertinya — aku ingin aku yang menjagamu, aku yang melindungimu, biarkan aku yang menjaga kemekaran dan keindahan bunga lily itu. Aku juga mendapat sesuatu yang baru tentangmu seperti kau suka jogging, kau pintar dalam Ilmu Pengetahuan Sosial, kau suka warna pink 🌸. Semoga aku bisa membuatmu semakin menyukai apa yang kau sukai itu. <span>Maaf</span> jika aku masih membuatmu kecewa, tetapi aku berjanji untuk membuatmu kembali percaya kepada ku, dan memaafkan ku.
+    <button class="popup-close" onclick="closePopup()">Tutup</button>
+  </div>
+
   <script>
     const cardInner = document.getElementById("cardInner");
     let flipped = false;
@@ -189,11 +252,20 @@
     function playMusic() {
       backsound.play();
       catAnim.style.display = "block";
+      setTimeout(showPopup, 10000);
     }
 
     function pauseMusic() {
       backsound.pause();
       catAnim.style.display = "none";
+    }
+
+    function showPopup() {
+      document.getElementById("popupBox").style.display = "block";
+    }
+
+    function closePopup() {
+      document.getElementById("popupBox").style.display = "none";
     }
   </script>
 
