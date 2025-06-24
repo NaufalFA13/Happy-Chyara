@@ -100,7 +100,6 @@
       }
     }
 
-    /* Popup */
     .popup {
       position: fixed;
       top: 50%;
@@ -115,6 +114,8 @@
       display: none;
       border: 5px solid pink;
       animation: fadeIn 0.8s ease forwards;
+      width: 90%;
+      max-width: 300px;
     }
 
     .popup img {
@@ -135,6 +136,22 @@
     .popup .flowers {
       font-size: 28px;
       margin-top: 10px;
+    }
+
+    .popup button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    .popup button:hover {
+      background: #ff1493;
     }
 
     @keyframes fadeIn {
@@ -171,7 +188,7 @@
     <div class="flower">🌸</div>
   </div>
 
-  <h1>GOOD MORNING LILY!</h1>
+  <h1>GOOD MORNING LILY</h1>
 
   <div class="bouquet">
     <div class="flower">🌸</div>
@@ -181,13 +198,16 @@
 
   <div class="image-container" id="imageContainer"></div>
 
-  <button class="btn" onclick="showSurprise()">🎁 Surprise 💖<BR>Klik 3x</button>
+  <button class="btn" onclick="showSurprise()">🎁 Surprise 💖</button>
 
-  <!-- Popup -->
   <div class="popup" id="popup">
     <img src="CILALA.PNG" alt="Foto Cilala">
     <p>🌸 Semoga hari ini hari yang bahagia buat kamu, Ciara! 🌸</p>
     <div class="flowers">🌸🌸🌸💐🌸🌸🌸</div>
+    <div>
+      <button onclick="closePopup()">Tutup ✖️</button>
+      <button onclick="nextAction()">Selanjutnya ➡️</button>
+    </div>
   </div>
 
   <script>
@@ -224,6 +244,14 @@
       } else if (clickCount === 3) {
         document.getElementById('popup').style.display = 'block';
       }
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    function nextAction() {
+      alert("Selanjutnya kamu bisa buat kejutan lain deh buat Ciara 🌸💕");
     }
 
     window.onload = displayImages;
