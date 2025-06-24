@@ -11,24 +11,14 @@
       padding: 0;
       font-family: 'Quicksand', sans-serif;
       overflow-x: hidden;
-      background: linear-gradient(270deg, #ffe6f0, #ffc1cc, #ffe4e9, #ffc1cc);
-      background-size: 800% 800%;
-      animation: gradientBG 10s ease infinite;
+      background: #ffe6f0;
       text-align: center;
       color: #ff69b4;
-    }
-
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     h1 {
       margin-top: 20px;
       font-size: 26px;
-      text-shadow: 1px 1px #fff;
-      padding: 0 10px;
     }
 
     .card {
@@ -49,10 +39,6 @@
       cursor: pointer;
     }
 
-    .card:hover .card-inner {
-      transform: rotateY(180deg);
-    }
-
     .card-front, .card-back {
       position: absolute;
       width: 100%;
@@ -64,7 +50,6 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      text-align: center;
     }
 
     .card-front {
@@ -81,25 +66,8 @@
       line-height: 1.4;
     }
 
-    .card-back p {
-      margin: 0;
-    }
-
-    .flower-emoji {
-      position: fixed;
-      top: -50px;
-      font-size: 28px;
-      animation: fall linear infinite;
-      z-index: 0;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
-
     .music-controls {
-      margin: 40px auto;
+      margin: 50px auto 10px;
       display: flex;
       justify-content: center;
       gap: 16px;
@@ -122,24 +90,48 @@
       background: #ff1493;
     }
 
-    audio {
-      display: none;
+    .flower-emoji {
+      position: fixed;
+      top: -50px;
+      font-size: 28px;
+      animation: fall linear infinite;
+      z-index: 0;
     }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 22px;
-      }
-      .card {
-        height: 150px;
-      }
-      .card-front {
-        font-size: 20px;
-      }
-      .music-controls button {
-        font-size: 14px;
-        padding: 10px 18px;
-      }
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .cat-animation {
+      position: fixed;
+      bottom: 80px;
+      font-size: 34px;
+      animation: moveCat 10s linear infinite;
+      white-space: nowrap;
+      display: none;
+      z-index: 2;
+    }
+
+    @keyframes moveCat {
+      0% { left: 100%; }
+      100% { left: -50%; }
+    }
+
+    .cat-text {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #ff1493;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    audio {
+      display: none;
     }
   </style>
 </head>
@@ -147,12 +139,12 @@
 
   <h1>🌸 Surprise Lagi Buat Ciara 🌸</h1>
 
-  <div class="card" onclick="this.querySelector('.card-inner').style.transform='rotateY(180deg)'">
-    <div class="card-inner">
+  <div class="card" id="flipCard">
+    <div class="card-inner" id="cardInner">
       <div class="card-front">🌸 Klik Aku 🌸</div>
       <div class="card-back">
         <p>Bantu aku wujudin janji aku yaa,</p>
-        <p>kak Ciara the beautiful girl 🌸💕</p>
+        <p>please!!, say yes beautiful girl 🌸💕</p>
       </div>
     </div>
   </div>
@@ -164,10 +156,22 @@
 
   <audio id="backsound" loop>
     <source src="backsound.mp3" type="audio/mpeg">
-    Browser kamu nggak support audio.
+    Browser kamu tidak support audio.
   </audio>
 
+  <div class="cat-animation" id="catAnim">
+    🐱 <span class="cat-text">I always on your side Ciara, don’t scared of anything</span>
+  </div>
+
   <script>
+    const cardInner = document.getElementById("cardInner");
+    let flipped = false;
+
+    document.getElementById("flipCard").onclick = () => {
+      cardInner.style.transform = flipped ? "rotateY(0deg)" : "rotateY(180deg)";
+      flipped = !flipped;
+    };
+
     function createFlower() {
       const flower = document.createElement("div");
       flower.classList.add("flower-emoji");
@@ -180,11 +184,16 @@
     setInterval(createFlower, 300);
 
     const backsound = document.getElementById("backsound");
+    const catAnim = document.getElementById("catAnim");
+
     function playMusic() {
       backsound.play();
+      catAnim.style.display = "block";
     }
+
     function pauseMusic() {
       backsound.pause();
+      catAnim.style.display = "none";
     }
   </script>
 
